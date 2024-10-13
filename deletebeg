@@ -1,43 +1,75 @@
-#include<stdio.h>
-#include<stdlib.h>
 
-struct node{
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
     int data;
     struct node *next;
 };
-struct node *s;
-void printlist(struct node *s){
-    struct node *ptr =s;
-    do{printf("LINKLIST=%d\n",ptr->data);
-    ptr=ptr->next;
-    }while(ptr!=s);
+
+struct node *s=NULL ;
+
+void printlist(struct node *s) {
+    if (s == NULL) 
+    return;
+    struct node *ptr = s;
+    do {
+        printf("LINKLIST=%d\n", ptr->data);
+        ptr = ptr->next;
+    } while (ptr != s);
 }
-int main(){
-    struct node *p,*q;
+
+void deleteEnd() {
+    if (s == NULL)
+     return; 
+
+    struct node *ptr = s;
+    if (ptr->next == s) {
+        free(ptr);
+        s = NULL;
+        return;
+    }
+    while (ptr->next->next != s) {
+        ptr = ptr->next;
+    }
+    free(ptr->next); 
+    ptr->next = s;   
+}
+
+int main() {
+    struct node *p, *q;
     char ch;
-    p=(struct node*)malloc(sizeof(struct node));
-    printf("Enter new node");
-    scanf("%d",&p->data);
-    s=p;
+
     
-    do{
-        q=(struct node*)malloc(sizeof(struct node));
-    printf("Enter new node");
-    scanf("%d",&q->data);
-    p->next=q;
-    q->next=s;
-    p=q;
-    
+    p = (struct node *)malloc(sizeof(struct node));
+    printf("Enter new node: ");
+    scanf("%d", &p->data);
+    s=p; 
+    s->next = s; 
 
+    do {
+        q = (struct node *)malloc(sizeof(struct node));
+        printf("Enter new node: ");
+        scanf("%d", &q->data);
+        q->next = s;
+        p->next = q; 
+        s=q;
+        
 
-    printf("Press y to continue");
-    ch=getch();
-    }while(ch=='Y'||ch=='y');
+        printf("Press y to continue \n");
+        ch = getch(); 
+    } while (ch == 'Y' || ch == 'y');
 
-  
+    printf("List before deleting first node:\n");
+    printlist(s);
 
-printlist(s);
-   
+    deleteEnd();
+
+    printf("List after deleting first node:\n");
+    printlist(s);
 
     return 0;
 }
+
+
+
