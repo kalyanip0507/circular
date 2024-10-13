@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *s;
+void creation(struct node *s){
+    struct node *ptr =s;
+    do{printf("LINKLIST=%d\n",ptr->data);
+    ptr=ptr->next;
+    }while(ptr!=s);
+}
+int main(){
+    struct node *p,*q;
+    char ch;
+    p=(struct node*)malloc(sizeof(struct node));
+    printf("Enter new node");
+    scanf("%d",&p->data);
+    s=p;
+    
+    
+    do{
+        q=(struct node*)malloc(sizeof(struct node));
+    printf("Enter new node");
+    scanf("%d",&q->data);  
+     p->next=q;
+    p=q;
+   
+    
+    printf("Press y to continue\n");
+    ch=getch();
+    }while(ch=='Y'||ch=='y');
+    p->next=s;
+
+creation(s);
+
+    return 0;
+}
